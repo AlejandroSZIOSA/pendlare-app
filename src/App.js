@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [currentLocalisation, setCurrentLocalisation] = useState({});
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      console.log("si");
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      console.log("no");
+    }
+    async function showPosition(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      /* const accuracy = position.coords.accuracy; */
+
+      console.log("Latitude:", latitude);
+      console.log("Longitude:", longitude);
+      setCurrentLocalisation({ latitude: latitude, longitude: longitude });
+    }
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Pendlaren App</h1>
+      <h2>Your Current Position: </h2>
+      <p>Latitude = {currentLocalisation.latitude}</p>
+      <p>Longitude = {currentLocalisation.longitude}</p>
     </div>
   );
 }
