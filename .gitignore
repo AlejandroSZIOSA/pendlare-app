@@ -10,7 +10,7 @@
 
 # production
 /build
-/src/api-key/key.js
+/src/api-key
 # misc
 .DS_Store
 .env.local
